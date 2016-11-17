@@ -355,9 +355,6 @@ function getMissingResidus(modID){
        missing_line=missing_residus[i];
        number = missing_line.split("   "); // split(' ') ou split("\s") non fonctionnels pour tout type espacement ?
        chain_letter=number[2].split(" ");
-       // print number[3];
-       // print chain_letter[4];
-
        dico_missing[chain_letter[4]][dico_missing[chain_letter[4]].size+1] = number[3]
     }
     return dico_missing;
@@ -365,47 +362,49 @@ function getMissingResidus(modID){
 
 
 function getSeqresno(modID) {
-   // print 'coucou';
+
     dico_missing = getMissingResidus(modID);
-   // print dico_missing;
-    noCurr = 1 ;
 
+    // On commence à 0 car dans tous les cas verifAtom ajoutent au moins 1
+    noCurr = 0 ;
 
-    info_chain1 = getProperty('chainInfo').split('\n').find("atomInfo1");
-    info_chain2 = getProperty('chainInfo').split('\n').find("atomInfo2");
+    // Pour eviter de stocker trop d'informations, on recalcule 6 fois et on recupere juste la taille 
+    info_chain_size1= (getProperty('chainInfo').split('\n').find("atomInfo1")).size;
+    info_chain_size2= (getProperty('chainInfo').split('\n').find("atomInfo2")).size;
 
-    if (info_chain1.size == info_chain2.size) {
+    if (info_chain_size1 == info_chain_size2) {
 
         previous_idChain = "";
         previous_noRes = ""; 
 
-        for (i = 1 ; i <= info_chain1.size ; i++ ) {
+        for (i = 1 ; i <= info_chain_size1 ; i++ ) {
 
-            idChain = ((info_chain1[i].split(']')[2]).split('.')[1])[0] ;
-            noRes = (info_chain1[i].split(']')[2]).split(':')[1] ;
-            noAtom1 = (info_chain1[i].split(']')[2])[0] ;
-            noAtom2 = (info_chain2[i].split(']')[2])[0] ;
+            idChain = (((getProperty('chainInfo').split('\n').find("atomInfo1"))[i].split(']')[2]).split('.')[1])[0] ;
+            noRes = ((getProperty('chainInfo').split('\n').find("atomInfo1"))[i].split(']')[2]).split(':')[1] ;
+
+            // Attention avant on avait mis ] et pas #
+            noAtom1 = ((getProperty('chainInfo').split('\n').find("atomInfo1"))[i].split('#')[0]) ;
+            noAtom2 = ((getProperty('chainInfo').split('\n').find("atomInfo2"))[i].split('#')[0]);
+
+            // Remise a zero complete quand on change de chaine 
+            if (previous_idChain != idChain) {
+                noCurr = 0;
+                previous_idChain = "";
+                previous_noRes = ""; 
+            }
 
             noCurr += verifAtom(noRes,dico_missing,idChain,previous_noRes) ;
 
             {chain = idChain and atomno >= noAtom1 and atomno <= noAtom2}.property_seqresno = noCurr; 
 
-            // Recuperation des infos de previous 
-            if (previous_idChain != idChain && previous_idChain != "") { // Si on change de chaine !!!! Marche pas si deux chaines d'une ligne se suivent 
-                previous_idChain = "";
-                previous_noRes = ""; 
-            }
-            else {
-                previous_idChain = idChain;
-                previous_noRes = noRes;
-            }
+            // Pas testé quand 1 ligne chaine A puis 1 ligne chaine B mais je pense que ça marche maintenant 
+            previous_idChain = idChain;
+            previous_noRes = noRes;
 
-       }
+        }
 
     }
-    // noAtom = (getProperty('chainInfo').split('\n').find("atomInfo2")[1].split(']')[2])[0] ;
-    // noRes = (getProperty('chainInfo').split('\n').find("atomInfo2")[1].split(']')[2]).split(':')[1] ;
-    // idChain = ((getProperty('chainInfo').split('\n').find("atomInfo2")[1].split(']')[2]).split('.')[1])[0] ;
+       
     else {
         print 'Tailles des atomInfo non concordantes.'
     }
@@ -416,21 +415,23 @@ function verifAtom(noAA,dico_missing,chainID,previous_noRes){  // A améliorer a
 
     increment = 0;
 
+    // Un bug precedent etait qu'on avait mis "i" dans la boucle comme dans la fonction du dessus... #Jmol
+
     // Cas où on est au début d'une chaine 
     if (previous_noRes == "") { 
-        for (i=1 ; i <= dico_missing[chainID].size ; i++) { 
-            if ((dico_missing[chainID])[i] < noAA) {
+        for (l=1 ; l <= dico_missing[chainID].size ; l++) { 
+            if ((dico_missing[chainID])[l] < noAA) {
                 increment += 1;
             }
         }
     } 
     else { // Pas encore teste, trouver jeu d'essai
-        for (i=1 ; i <= dico_missing[chainID].size ; i++) { 
-            if ((dico_missing[chainID])[i] > previous_noRes && (dico_missing[chainID])[i] < noAA){
+        for (k=1 ; k <= dico_missing[chainID].size ; k++) { 
+            if ((dico_missing[chainID])[k] > previous_noRes && (dico_missing[chainID])[k] < noAA){
                     increment += 1 ;
             }
         }
     }
 
-    return increment ;
+    return increment+1 ;
 }
