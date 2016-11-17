@@ -1,0 +1,436 @@
+set pdbGetHeader ON ;
+load 3oun.pdb ;
+// load 2kwx.pdb ; 
+// load append 2kb3.pdb ;
+// load append 3khr.pdb;  
+// load append 3i0n.pdb;  
+
+/* Ex 1 */ 
+
+UpperCaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" ; /*variable globale*/
+LowerCaseLetters = "abcdefghijklmnopqrstuvwxyz" ; /*variable globale*/
+
+function toUpperCase(string) {
+    if (string.type == "string") {
+        var n = UpperCaseLetters.size ;
+        var out = string ;
+        for (var i=0 ; i<n ; i++) {
+            out = out.replace(LowerCaseLetters[i],UpperCaseLetters[i]) ;
+        } ;
+        return out ;
+
+    } else {
+        print("Ceci n'est pas une string")
+        return "";
+    }
+}
+
+function toLowerCase(string) {
+    if (string.type == "string") {
+        var n = LowerCaseLetters.size ;
+        var out = string ;
+        for (var i=0 ; i< n; i++) {
+            out = out.replace(UpperCaseLetters[i],LowerCaseLetters[i]) ;
+        } ;
+        return out ;
+    } else {
+        print("Ceci n'est pas une string")
+        return "";
+    }
+}
+    
+/* Ex 2 */
+
+//AAA_A Variable globale 
+
+q = {   "HIS" : "H", 
+        "GLY" : "G",  
+        "PRO" : "P",
+        "ALA" : "A", 
+        "VAL" : "V",
+        "LEU" : "L",
+        "ILE" : "I", 
+        "MET" : "M" , 
+        "CYS" : "C",
+        "PHE" : "F",
+        "TYR" : "Y",
+        "TRP" : "W",
+        "LYS" : "K",
+        "ARG" : "R",
+        "GLN" : "Q",
+        "ASN" : "N",
+        "GLU" : "E",
+        "ASP" : "D",
+        "SER" : "S",
+        "THR" : "T", 
+        "SEL" : "U", 
+        "PYL" : "O" 
+    } 
+
+function tr3to1(aa) {
+    if (aa.type == "string" and aa.size == 3 and q[toUpperCase(aa)]!="") {
+        return q[toUpperCase(aa)];
+    }
+    else {
+        return "?"; 
+    }
+}
+
+
+// A_AAA Variable globale 
+
+p = {   "H" : "HIS", 
+        "G" : "GLY",  
+        "P" : "PRO",
+        "A" : "ALA", 
+        "V" : "VAL",
+        "L" : "LEU",
+        "I" : "ILE", 
+        "M" : "MET", 
+        "C" : "CYS",
+        "F" : "PHE",
+        "Y" : "TYR",
+        "W" : "TRP",
+        "K" : "LYS",
+        "R" : "ARG",
+        "Q" : "GLN",
+        "N" : "ASN",
+        "E" : "GLU",
+        "D" : "ASP",
+        "S" : "SER",
+        "T" : "THR", 
+        "U" : "SEL", 
+        "O" : "PYL" 
+    } 
+
+function tr1to3(aa) {
+    if (aa.type == "string" and aa.size == 1 and p[toUpperCase(aa)]!="") {
+        return p[toUpperCase(aa)];
+    }
+    else {
+        return "???"; 
+    }
+}
+
+/* Ex 3 */ 
+
+function returnModelInit(actif){
+    intervalle = actif.split("-");
+    inter1 = intervalle[1];
+    // print inter1; 
+    if (intervalle.size == 2) {
+        inter2 = intervalle[2].trim();
+        // print inter2; 
+        model @inter1 - @inter2;
+    }
+    else { 
+        model @inter1;
+    }
+}
+
+function getFileHeader(modID) {
+    if (checkModID(modID)) {
+        actif = _modelNumber;
+        model @modID;
+        entete =(getProperty('fileHeader'));
+        returnModelInit(actif);
+        return entete; 
+    }
+    else {
+        return "";
+    }  
+
+}
+
+
+// entete1 = getFileHeader('1.1') ; 
+// entete2 = getFileHeader('2.1') ; 
+// print entete1 ; 
+// print entete2 ;
+
+/* Ex 4 */
+
+function checkModID(modID) {
+    check = false;  
+    id = modID.split(".");
+
+    if (modID.type == "string" and id.size == 2 and id[1] >= 1 and id[2] >= 1) {  
+
+        actif = _modelNumber; 
+        model @modID; 
+        modelNb = _modelNumber;
+        returnModelInit(actif); 
+    
+        if (modID == modelNb) {
+            check = true;
+        }
+
+    }
+    return check; 
+}
+
+/* Ex 5 */ 
+
+function getSubString(string, deb, fin){
+    substring = "";
+    for (i=deb; i<fin; i++){
+        substring+= string[i];
+    }
+    return substring; 
+}
+
+function splitString(string,length) {
+    if (string.type == "string" and length > 0 and string.size > 0 and string.size >= length) {
+        tab_split = []; 
+        nb_bloc = string.size / length; // calcul nombre boucle 
+        idx_sub = 1 ;
+
+        while (nb_bloc > 0) { 
+            tab_split[tab_split.size+1] = getSubString(string, idx_sub, idx_sub+length);  // [deb, fin[
+            nb_bloc-=1;
+            idx_sub+=length;
+        }
+
+        last_bloc = string.size % length ;
+
+        if (last_bloc > 0) {
+            tab_split[tab_split.size+1] = getSubString(string, idx_sub, idx_sub+last_bloc);
+        }
+
+        return tab_split; 
+    }
+    print "Erreur : la chaine n'a pas pu être coupée. Le type d'entrée n'est pas approprié."; 
+    return []; 
+
+}
+
+/* Ex 6 */ 
+
+// Oui dans 2.1 A on voit TPO
+// Et dans 4.1 A on voit MLY 
+// Reste à les identifier dans la structure, difficile avec pad mac 
+
+
+function trimTab(tab) { 
+// split(" ") sur une chaine de caractere, sort un tableau avec des cases contenant des espaces
+// donc fonction qui permet d'enlever ces cases
+    new_tab = [];
+    idx = 1; 
+    for (k= 1; k<= tab.size; k++) {
+        if (tab[k].find("^\\s*$", "v")) {
+            new_tab[idx] = tab[k]
+            idx++;
+        }
+    }
+    return new_tab; 
+} 
+
+function getSeqFromSEQRES(modID, chainID) {
+    modres = getMODRES(modID, true); 
+    seqres = getFileHeader(modID).split("\n").find("SEQRES").find("\\s"+chainID+"\\s"); // Toutes les lignes de la chaine
+    chainA = "";
+    for (i=1; i <= seqres.size; i++) { // Chaque ligne de la chaine 
+        ligne = trimTab(seqres[i].split(" "));  
+
+        for (j=5; j<= ligne.size; j++) { 
+            next_AA = tr3to1(ligne[j]);
+            if (next_AA == "?") {
+                modif = tr3to1(modres[ligne[j]]);
+                if (modif != ""){
+                    next_AA = modif; 
+                }
+            }
+            chainA+= next_AA; 
+        }
+    }
+    if (!chainA) {
+        print ("Il n'y a pas de séquence pour cette chaine/modèle ou la séquence n'est pas protéique.")
+    }
+    return chainA; 
+}
+
+/* Ex 7 */
+
+function getMODRES(modID,quiet) {
+    new_dic = {}
+    repet = {}
+    seqmod = getFileHeader(modID).split("\n").find("MODRES");
+     for (l=1; l <= seqmod.size; l++) {
+        if (seqmod[l].size > 1) { // Si un seul MODRES alors seqmol[l] sort M au lieu de la premiere ligne 
+            ligne = trimTab(seqmod[l].split(" "));
+        } 
+        else { 
+            ligne = trimTab(seqmod.split(" "));
+        }
+
+        if (new_dic[ligne[3]] == "") {
+            new_dic[ligne[3]] = ligne[6];
+            repet[ligne[3]] = 1; 
+
+            if (ligne[3] == ligne[6] and not quiet) {
+                print "Attention, la modification "+ligne[3]+" est associée à ce même résidu.";
+            }
+        }
+        else {
+            repet[ligne[3]] +=1; 
+        }
+        
+     }
+
+     // Affichage du nombre de repetition 
+     for (key in repet.keys) {
+        if (repet[key] > 1 and not quiet) {
+            print "Attention, la modification "+key+" apparaît sur "+repet[key]+" lignes."; 
+        }
+     } 
+
+     return new_dic;
+}
+
+
+
+
+
+
+
+
+//                                               _________
+//                                              |=========|
+//                     __[]__         _          \_______/
+// +================+ /______\     __(_)__    ()  \_____/   ()
+//  `-+ +-----+---+ | |------|    /_______\  /__\  |   | +======+
+//    | |     |   | +-+------+-.  |=======| <____> |   | ||    ||
+//    | |     |   | |o          \_|___  __|__//\\__|___|_+======+
+//    | +=========+ |o                                     o||=+
+//    | *         * |o                                     o||||            ALL ABOARD THE HYPE TRAIN.
+//    |    --%--    |o~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~o||=+
+//    +=====================================+-----------+====+
+//        |==/ ------ \=====/ ------ \===%--||o        o||____
+//          // \  L_/__\___//_\__L_/__\_/ %=||o~~~~~~~~o||===\\_____
+//         ||__ /.  ___________ .  ______/ +==============+      \  \_
+//         ||   \__/   || ||   \__/   ||     //--\\  //--\\\\   \ \ \\\_
+//          \\ / || \ //   \\ / || \ //     (( <> ))(( <> ))\\_\_\_\_\\\\
+//           \========/     \========/       \____/  \____/  `-----------+
+
+
+
+
+
+// Projet
+
+
+function getChain(modID) {
+
+    ensembl_chains = getFileHeader(modID).split("\n").find("COMPND.+CHAIN:");
+    new_tab=[];
+
+    for (l=1; l <= ensembl_chains.size; l++) {
+        new_tab[l] = (ensembl_chains[l].split(':')[2])[2];
+    }
+
+    return new_tab;
+}
+
+function getMissingResidus(modID){
+
+    // Initialisation du dictionnaire des missig residus par chain BOOM
+
+    ensembl_chains = getChain(modID) ; 
+    dico_missing = {};
+
+    for (l=1; l <= ensembl_chains.size ; l++) {
+        dico_missing[ensembl_chains[l]]=[] ;
+    }
+
+    missing_residus = getFileHeader(modID).split("\n").find("REMARK\\s465");
+    // Boucle pour connaître N°ligne début REMARK missing res
+    idx = 1 ;
+
+    while (missing_residus[idx].find('M\\sRES\\sC',"v") == true){
+        idx+=1;
+    }
+
+    for (i=idx+1; i <= missing_residus.size ; i++) {
+
+       missing_line=missing_residus[i];
+       number = missing_line.split("   "); // split(' ') ou split("\s") non fonctionnels pour tout type espacement ?
+       chain_letter=number[2].split(" ");
+       // print number[3];
+       // print chain_letter[4];
+
+       dico_missing[chain_letter[4]][dico_missing[chain_letter[4]].size+1] = number[3]
+    }
+    return dico_missing;
+}
+
+
+function getSeqresno(modID) {
+   // print 'coucou';
+    dico_missing = getMissingResidus(modID);
+   // print dico_missing;
+    noCurr = 1 ;
+
+
+    info_chain1 = getProperty('chainInfo').split('\n').find("atomInfo1");
+    info_chain2 = getProperty('chainInfo').split('\n').find("atomInfo2");
+
+    if (info_chain1.size == info_chain2.size) {
+
+        previous_idChain = "";
+        previous_noRes = ""; 
+
+        for (i = 1 ; i <= info_chain1.size ; i++ ) {
+
+            idChain = ((info_chain1[i].split(']')[2]).split('.')[1])[0] ;
+            noRes = (info_chain1[i].split(']')[2]).split(':')[1] ;
+            noAtom1 = (info_chain1[i].split(']')[2])[0] ;
+            noAtom2 = (info_chain2[i].split(']')[2])[0] ;
+
+            noCurr += verifAtom(noRes,dico_missing,idChain,previous_noRes) ;
+
+            {chain = idChain and atomno >= noAtom1 and atomno <= noAtom2}.property_seqresno = noCurr; 
+
+            // Recuperation des infos de previous 
+            if (previous_idChain != idChain && previous_idChain != "") { // Si on change de chaine !!!! Marche pas si deux chaines d'une ligne se suivent 
+                previous_idChain = "";
+                previous_noRes = ""; 
+            }
+            else {
+                previous_idChain = idChain;
+                previous_noRes = noRes;
+            }
+
+       }
+
+    }
+    // noAtom = (getProperty('chainInfo').split('\n').find("atomInfo2")[1].split(']')[2])[0] ;
+    // noRes = (getProperty('chainInfo').split('\n').find("atomInfo2")[1].split(']')[2]).split(':')[1] ;
+    // idChain = ((getProperty('chainInfo').split('\n').find("atomInfo2")[1].split(']')[2]).split('.')[1])[0] ;
+    else {
+        print 'Tailles des atomInfo non concordantes.'
+    }
+
+}
+
+function verifAtom(noAA,dico_missing,chainID,previous_noRes){  // A améliorer avec while vérifier condition
+
+    increment = 0;
+
+    // Cas où on est au début d'une chaine 
+    if (previous_noRes == "") { 
+        for (i=1 ; i <= dico_missing[chainID].size ; i++) { 
+            if ((dico_missing[chainID])[i] < noAA) {
+                increment += 1;
+            }
+        }
+    } 
+    else { // Pas encore teste, trouver jeu d'essai
+        for (i=1 ; i <= dico_missing[chainID].size ; i++) { 
+            if ((dico_missing[chainID])[i] > previous_noRes && (dico_missing[chainID])[i] < noAA){
+                    increment += 1 ;
+            }
+        }
+    }
+
+    return increment ;
+}
