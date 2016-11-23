@@ -5,6 +5,10 @@ load 3oun.pdb ;
 // load append 3khr.pdb;  
 // load append 3i0n.pdb;  
 
+// script jmolGeneric.jmol
+// getSeqresno('1.1')
+// print {resno=32 and chain="A"}.property_seqres
+
 /* Ex 1 */ 
 
 UpperCaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" ; /*variable globale*/
@@ -316,7 +320,7 @@ function getMODRES(modID,quiet) {
 
 
 
-// Projet
+// Projet - Partie 1 
 
 
 function getChain(modID) {
@@ -369,8 +373,8 @@ function getSeqresno(modID) {
     noCurr = 0 ;
 
     // Pour eviter de stocker trop d'informations, on recalcule 6 fois et on recupere juste la taille 
-    info_chain_size1= (getProperty('chainInfo').split('\n').find("atomInfo1")).size;
-    info_chain_size2= (getProperty('chainInfo').split('\n').find("atomInfo2")).size;
+    info_chain_size1= (getProperty('chainInfo', {protein}).split('\n').find("atomInfo1")).size;
+    info_chain_size2= (getProperty('chainInfo', {protein}).split('\n').find("atomInfo2")).size;
 
     if (info_chain_size1 == info_chain_size2) {
 
@@ -379,12 +383,16 @@ function getSeqresno(modID) {
 
         for (i = 1 ; i <= info_chain_size1 ; i++ ) {
 
-            idChain = (((getProperty('chainInfo').split('\n').find("atomInfo1"))[i].split(']')[2]).split('.')[1])[0] ;
-            noRes = ((getProperty('chainInfo').split('\n').find("atomInfo1"))[i].split(']')[2]).split(':')[1] ;
+            idChain = (((getProperty('chainInfo', {protein}).split('\n').find("atomInfo1"))[i].split(']')[2]).split('.')[1])[0] ;
+            noRes = ((getProperty('chainInfo', {protein}).split('\n').find("atomInfo1"))[i].split(']')[2]).split(':')[1] ;
 
             // Attention avant on avait mis ] et pas #
-            noAtom1 = ((getProperty('chainInfo').split('\n').find("atomInfo1"))[i].split('#')[0]) ;
-            noAtom2 = ((getProperty('chainInfo').split('\n').find("atomInfo2"))[i].split('#')[0]);
+            noAtom1 = ((getProperty('chainInfo', {protein}).split('\n').find("atomInfo1"))[i].split('#')[0]) ;
+            noAtom2 = ((getProperty('chainInfo', {protein}).split('\n').find("atomInfo2"))[i].split('#')[0]);
+
+            noAtom1 = 0 + noAtom1 +1; 
+            noAtom2 = 0 + noAtom2 +1;
+           
 
             // Remise a zero complete quand on change de chaine 
             if (previous_idChain != idChain) {
@@ -396,6 +404,7 @@ function getSeqresno(modID) {
             noCurr += verifAtom(noRes,dico_missing,idChain,previous_noRes) ;
 
             {chain = idChain and atomno >= noAtom1 and atomno <= noAtom2}.property_seqresno = noCurr; 
+          //  print {chain = idChain and atomno >= noAtom1 and atomno <= noAtom2}.property_seqresno
 
             // Pas testé quand 1 ligne chaine A puis 1 ligne chaine B mais je pense que ça marche maintenant 
             previous_idChain = idChain;
@@ -435,3 +444,29 @@ function verifAtom(noAA,dico_missing,chainID,previous_noRes){  // A améliorer a
 
     return increment+1 ;
 }
+
+
+   //          .---- -  -
+   //         (   ,----- - -
+   //          \_/      ___
+   //        c--U---^--'o  [_
+   //        |------------'_|   EVERY GET READY FOR DEPARTURE ON Platform Nine and Three-Quarters
+   //       /_(o)(o)--(o)(o)
+   // ~ ~~~~~~~~~~~~~~~~~~~~~~~~ ~
+
+script BLAST_alignement_tous/BLAST_alignement5_3OUN-A.jmol; 
+
+function getRes6000(modID){
+    getSeqresno(modID);
+
+    // Affecter -1
+    {(property_seqresno < Hsp_hit_from or property_seqresno > Hsp_hit_to) and protein and chain= Hit_chain }.property_qresno = -1;
+
+}
+
+getRes6000("1.1")
+
+//for (i =1; i <=180; i++) { print {resno=i and chain = "A"}.property_seqresno ; print i;} 
+
+
+

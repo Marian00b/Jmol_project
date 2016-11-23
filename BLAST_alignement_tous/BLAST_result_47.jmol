@@ -1,0 +1,18 @@
+query = "MSTHRRLIQRVERKLESTVGDAFARIFGGSIVPQEVEALLRREAADGIQSLQGNRLLAPNEYIITLGVHDYEKMKADPHLTSTGFARDLADYIQEQGWQTYGDVVVRFEQSSNLHTGQFRARGTVNPDVETRPPVIDPVRPQSNHAFGAEPGVAPMSDNSSYRGGQGQGRPDEYYDDRYARPQEDPRGGPDPQGGSDPRGGYPPETGGYPPQPGYPRPRHPDQGDYPEQIGYPDQGGYPEQRGYPEQRGYPDQRGYQDQGRGYPDQGQGGYPPPYEQRPPVSPGPAAGYGAPGYDQGYRQSGGYGPSPGGGQPGYGGYGEYGRGPARHEEGSYVPSGPPGPPEQRPAYPDQGGYDQGYQQGATTYGRQDYGGGADYTRYTESPRVPGYAPQGGGYAEPAGRDYDYGQSGAPDYGQPAPGGYSGYGQGGYGSAGTSAYLRRDRAGSWWYLLASCENTAGRGFDSDIRLVDVTVSRNHAEIKQNGGEYIIMDVNSTNGTYVQGARVNSVRIHDGDHIQLGKFEFEVRAG" ;
+
+Hit_def        = "Chain A, A Refined Nmr Structure Of A New Phophopeptide-Binding Domain Containing The Fha2 Of Rad53 &gt;gi|159162303|pdb|1FHQ|A Chain A, Refined Solution Structure Of The Fha2 Domain Of Rad53 &gt;gi|159162304|pdb|1FHR|A Chain A, Solution Structure Of The Fha2 Domain Of Rad53 Complexed With A Phosphotyrosyl Peptide &gt;gi|159162532|pdb|1J4K|A Chain A, Solution Structure Of The Fha2 Domain Of Rad53 Complexed With A Phosphotyrosyl Peptide Derived From Rad9 &gt;gi|159162534|pdb|1J4L|A Chain A, Solution Structure Of The Fha2 Domain Of Rad53 Complexed With A Phosphothreonyl Peptide Derived From Rad9 &gt;gi|159162574|pdb|1K2M|A Chain A, Solution Structure Of The Fha2 Domain Of Rad53 Complexed With A Phosphotyrosyl Peptide Derived From Rad9 &gt;gi|159162576|pdb|1K2N|A Chain A, Solution Structure Of The Fha2 Domain Of Rad53 Complexed With A Phosphothreonyl Peptide Derived From Rad9" ;
+Hit_PDB_ID     = "1DMZ" ;
+Hit_chain      = "A" ;
+Hsp_score      = "150" ;
+Hsp_Evalue     = "4.58441e-13" ;
+Hsp_query_from = "433" ;
+Hsp_query_to   = "517" ;
+Hsp_hit_from   = "3" ;
+Hsp_hit_to     = "108" ;
+Hsp_identity   = "21" ;
+Hsp_positive   = "38" ;
+Hsp_gaps       = "21" ;
+Hsp_align_len  = "106" ;
+Hsp_qseq       = "GTSAYLRR--DRAGSWWYLLASCEN--TAGRGFDSDIRLVDVTVSRNHAEI----------KQNGGEYIIMDV----NSTNGTYVQGARV---NSVRIHDGDHIQL" ;
+Hsp_midline    = "G+   L++  D      +    + N  + GR  D   +  D ++SR H +I            +   +   D+      TN+ Y+++ R          DGD I  " ;
+Hsp_hseq       = "GRFLTLKPLPDSIIQESLEIQQGVNPFFIGRSEDCNCKIEDNRLSRVHCFIFKKRHAVGKSMYESPAQGLDDIWYCHTGTNVSYLNNNRMIQGTKFLLQDGDEIKI" ;

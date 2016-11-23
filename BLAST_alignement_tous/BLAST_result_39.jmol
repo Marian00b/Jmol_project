@@ -1,0 +1,18 @@
+query = "MSTHRRLIQRVERKLESTVGDAFARIFGGSIVPQEVEALLRREAADGIQSLQGNRLLAPNEYIITLGVHDYEKMKADPHLTSTGFARDLADYIQEQGWQTYGDVVVRFEQSSNLHTGQFRARGTVNPDVETRPPVIDPVRPQSNHAFGAEPGVAPMSDNSSYRGGQGQGRPDEYYDDRYARPQEDPRGGPDPQGGSDPRGGYPPETGGYPPQPGYPRPRHPDQGDYPEQIGYPDQGGYPEQRGYPEQRGYPDQRGYQDQGRGYPDQGQGGYPPPYEQRPPVSPGPAAGYGAPGYDQGYRQSGGYGPSPGGGQPGYGGYGEYGRGPARHEEGSYVPSGPPGPPEQRPAYPDQGGYDQGYQQGATTYGRQDYGGGADYTRYTESPRVPGYAPQGGGYAEPAGRDYDYGQSGAPDYGQPAPGGYSGYGQGGYGSAGTSAYLRRDRAGSWWYLLASCENTAGRGFDSDIRLVDVTVSRNHAEIKQNGGEYIIMDVNSTNGTYVQGARVNSVRIHDGDHIQLGKFEFEVRAG" ;
+
+Hit_def        = "Chain A, Nmr Structure Of The Fha1 Domain Of Rad53 In Complex With A Rad9-Derived Phosphothreonine (At T155) Peptide &gt;gi|253722227|pdb|1J4Q|A Chain A, Nmr Structure Of The Fha1 Domain Of Rad53 In Complex With A Rad9-Derived Phosphothreonine (At T192) Peptide &gt;gi|253722250|pdb|1K3N|A Chain A, Nmr Structure Of The Fha1 Domain Of Rad53 In Complex With A Rad9-Derived Phosphothreonine (At T155) Peptide &gt;gi|253722251|pdb|1K3Q|A Chain A, Nmr Structure Of The Fha1 Domain Of Rad53 In Complex With A Rad9-Derived Phosphothreonine (At T192) Peptide &gt;gi|253722914|pdb|1J4O|A Chain A, Refined Nmr Structure Of The Fha1 Domain Of Yeast Rad53 &gt;gi|253722942|pdb|1K3J|A Chain A, Refined Nmr Structure Of The Fha1 Domain Of Yeast Rad53" ;
+Hit_PDB_ID     = "1J4P" ;
+Hit_chain      = "A" ;
+Hsp_score      = "159" ;
+Hsp_Evalue     = "2.26524e-14" ;
+Hsp_query_from = "452" ;
+Hsp_query_to   = "518" ;
+Hsp_hit_from   = "50" ;
+Hsp_hit_to     = "120" ;
+Hsp_identity   = "19" ;
+Hsp_positive   = "28" ;
+Hsp_gaps       = "4" ;
+Hsp_align_len  = "71" ;
+Hsp_qseq       = "SCENTAGRGFDSDIRLVDVT-VSRNHAEIKQNGGEYIIMDVNSTNGTYVQGARVNS---VRIHDGDHIQLG" ;
+Hsp_midline    = "    T GR+   D  L  +  +S  H  I  +          STNGT ++G +V+        +GD I  G" ;
+Hsp_hseq       = "KKVWTFGRNPACDYHLGNISRLSNKHFQILLGEDGNLLLNDISTNGTWLNGQKVEKNSNQLLSQGDEITVG" ;

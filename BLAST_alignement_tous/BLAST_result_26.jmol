@@ -1,0 +1,18 @@
+query = "MSTHRRLIQRVERKLESTVGDAFARIFGGSIVPQEVEALLRREAADGIQSLQGNRLLAPNEYIITLGVHDYEKMKADPHLTSTGFARDLADYIQEQGWQTYGDVVVRFEQSSNLHTGQFRARGTVNPDVETRPPVIDPVRPQSNHAFGAEPGVAPMSDNSSYRGGQGQGRPDEYYDDRYARPQEDPRGGPDPQGGSDPRGGYPPETGGYPPQPGYPRPRHPDQGDYPEQIGYPDQGGYPEQRGYPEQRGYPDQRGYQDQGRGYPDQGQGGYPPPYEQRPPVSPGPAAGYGAPGYDQGYRQSGGYGPSPGGGQPGYGGYGEYGRGPARHEEGSYVPSGPPGPPEQRPAYPDQGGYDQGYQQGATTYGRQDYGGGADYTRYTESPRVPGYAPQGGGYAEPAGRDYDYGQSGAPDYGQPAPGGYSGYGQGGYGSAGTSAYLRRDRAGSWWYLLASCENTAGRGFDSDIRLVDVTVSRNHAEIKQNGGEYIIMDVNSTNGTYVQGARVNSVRIHDGDHIQLGKFEFEVRAG" ;
+
+Hit_def        = "Chain A, Crystal Structure Of A Centrosomal Protein 170kda, Transcript Variant Beta (cep170) From Homo Sapiens At 2.15 A Resolution (psi Community Target, Sundstrom) &gt;gi|480312314|pdb|4JON|B Chain B, Crystal Structure Of A Centrosomal Protein 170kda, Transcript Variant Beta (cep170) From Homo Sapiens At 2.15 A Resolution (psi Community Target, Sundstrom) &gt;gi|480312315|pdb|4JON|C Chain C, Crystal Structure Of A Centrosomal Protein 170kda, Transcript Variant Beta (cep170) From Homo Sapiens At 2.15 A Resolution (psi Community Target, Sundstrom) &gt;gi|480312316|pdb|4JON|D Chain D, Crystal Structure Of A Centrosomal Protein 170kda, Transcript Variant Beta (cep170) From Homo Sapiens At 2.15 A Resolution (psi Community Target, Sundstrom) &gt;gi|480312317|pdb|4JON|E Chain E, Crystal Structure Of A Centrosomal Protein 170kda, Transcript Variant Beta (cep170) From Homo Sapiens At 2.15 A Resolution (psi Community Target, Sundstrom)" ;
+Hit_PDB_ID     = "4JON" ;
+Hit_chain      = "A" ;
+Hsp_score      = "189" ;
+Hsp_Evalue     = "8.06927e-19" ;
+Hsp_query_from = "432" ;
+Hsp_query_to   = "527" ;
+Hsp_hit_from   = "3" ;
+Hsp_hit_to     = "102" ;
+Hsp_identity   = "26" ;
+Hsp_positive   = "45" ;
+Hsp_gaps       = "10" ;
+Hsp_align_len  = "103" ;
+Hsp_qseq       = "AGTSAYLRRDRAGSWWYLLASCENTAGRGFDSDIRLVDVTVSRNHAEIKQN--GGEYIIMDVNSTNGTYVQGARVNSV---RIHDGDHIQLG--KFEFEVRAG" ;
+Hsp_midline    = "++TS  L    +G   + L++   + GR  D    L +  V + HA I     + E+  +D++S+NGT V+  R+ +         D    G    +F V  G" ;
+Hsp_hseq       = "SLTSWFLV--SSGGTRHRLPREMIFVGRD-DCELMLQSRSVDKQHAVINYDASTDEHLVKDLGSLNGTFVNDVRIPEQTYITLKLEDKLRFGYDTNLFTVVQG" ;
