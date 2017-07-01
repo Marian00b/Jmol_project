@@ -1,24 +1,108 @@
+// #######################################################################################################################################################
+// Code réalisé dans le cadre de l'UE Structure des molécules, par : Quentin Testard & Marianne Borderes - M2 BCD 
+// Version de JMOL à utiliser : 13.0.6
+// Travail remis le 5 janvier 2017. 
+// #######################################################################################################################################################
+
+
 set pdbGetHeader ON ;
-// load 3oun.pdb ;
-// load 2kb3.pdb
-// backbone -0.2
-// color {chain='A'} red;
+
+// #######################################################################################################################################################
+// #######################################################################################################################################################
+// ##################################################################       DOCUMENTATION         ########################################################
+// #######################################################################################################################################################
+// #######################################################################################################################################################
+
+
+// Dans les lignes suivantes, nous vous montrons sur l'exemple de la protéine 3OUN.
+// Décommentez les exemples un par un et observez la numérotations des différentes propriétées sur la chaine A.
+
+// -------------------------------------------------------  Procédure lancement et visulisation Partie 1 --------------------------------------------// 
+
+// ***************************************************************************************************************************************
+// *****************************************  Afficher la propriété seqresno sur la chaîne A de 3oun *************************************
+// ***************************************************************************************************************************************
+
+
+//load 3oun.pdb ;
+/*getSeqresno("1.1");
+backbone -0.2;
+select {*.CA and chain='A'};
+label %3.0[property_seqresno];
+color {chain='A'} red*/
+
+
+// -------------------------------------------------------  Procédure lancement et visualisation Partie 2 --------------------------------------------// 
+
+
+// ***************************************************************************************************************************************
+// ***** Afficher la propriété qresno de l'alignement de xy007 avec la séquence de la chaîne A de la protéine 3oun ***********************
+// ***************************************************************************************************************************************
+
+//load 3oun.pdb ;
+/*script BLAST_alignement_tous/BLAST_alignement5_3OUN-A.jmol; 
+getRes6000("1.1")
+select {*.CA and chain='A'}
+label %3.0[property_qresno]
+color {chain='A'} red
+*/
+
+// **************************************************************************************************************************************
+// ****** Afficher la propriété qsimil de l'alignement de xy007 avec la séquence de la chaîne A de la protéine 3oun *********************
+// **************************************************************************************************************************************
+
+
+//load 3oun.pdb ;
+/*script BLAST_alignement_tous/BLAST_alignement5_3OUN-A.jmol; 
+getRes6000("1.1")
+select {*.CA and chain='A'}
+label %3.0[property_qsimil]
+color {chain='A'} red*/
+
+
+// -------------------------------------------------------  Procédure lancement Partie 3 -------------------------------------------------------------// 
+
+// **************************************************************************************************************************************
+// ************************************************ Créer les ensembles d'atomes à aligner, séparément  *********************************
+// **************************************************************************************************************************************
+
 // load 2pie.pdb;
-// load 3hue.pdb
-// load 1a2c.pdb;
-// load 3i0n.pdb
-//load append 3oun.pdb ;
-// load 3kt9.pdb
-// load 2kwx.pdb ; 
-// load append 2kb3.pdb ;
-// load 3khr.pdb ;  
-// load append 3i0n.pdb ;  
+// Tableau_Ca_Mod1 = getCA("1.1","BLAST_alignement_tous/BLAST_alignement2_2PIE-A.jmol", "2pie.pdb",0, getMinMax("BLAST_alignement_tous/BLAST_alignement2_2PIE-A.jmol","BLAST_alignement_tous/BLAST_alignement5_3OUN-A.jmol") );
 
-// script jmolGeneric.jmol
-// getSeqresno('1.1')
-// print {resno=32 and chain="A"}.property_seqres
+// load append 3oun.pdb ;
+// Tableau_Ca_Mod2 = getCA("2.1","BLAST_alignement_tous/BLAST_alignement5_3OUN-A.jmol", "3oun.pdb",0,getMinMax("BLAST_alignement_tous/BLAST_alignement2_2PIE-A.jmol","BLAST_alignement_tous/BLAST_alignement5_3OUN-A.jmol") );
 
-/* Ex 1 */ 
+// **************************************************************************************************************************************
+// ***************************************************** Enlever les cases vides pour tableaux de mêmes dimensions **********************
+// **************************************************************************************************************************************
+
+// checkSameAlign(Tableau_Ca_Mod1,Tableau_Ca_Mod2);
+
+// **************************************************************************************************************************************
+// ************************************************ COMPARE : Non fonctionnelle *********************************************************
+// **************************************************************************************************************************************
+
+// compare {1.1} {2.1} ATOMS {tab_1_final} {tab_2_final} ROTATE TRANSLATE ;
+
+
+// #######################################################################################################################################################
+// #######################################################################################################################################################
+// #######################################################################################################################################################
+// #######################################################################################################################################################
+// #######################################################################################################################################################
+
+
+
+// #######################################################################################################################################################
+// #######################################################################################################################################################
+// ##################################################################       TUTORIEL              ########################################################
+// #######################################################################################################################################################
+// #######################################################################################################################################################
+
+// *****************************************
+// ************  Exercice 1 ****************  
+// *****************************************
+
 
 UpperCaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" ; /*variable globale*/
 LowerCaseLetters = "abcdefghijklmnopqrstuvwxyz" ; /*variable globale*/
@@ -52,7 +136,9 @@ function toLowerCase(string) {
     }
 }
     
-/* Ex 2 */
+// *****************************************
+// ************  Exercice 2 ****************  
+// *****************************************
 
 //AAA_A Variable globale 
 
@@ -125,7 +211,9 @@ function tr1to3(aa) {
     }
 }
 
-/* Ex 3 */ 
+// *****************************************
+// ************  Exercice 3 ****************  
+// *****************************************
 
 function returnModelInit(actif){
     intervalle = actif.split("-");
@@ -161,7 +249,9 @@ function getFileHeader(modID) {
 // print entete1 ; 
 // print entete2 ;
 
-/* Ex 4 */
+// *****************************************
+// ************  Exercice 4 ****************  
+// *****************************************
 
 function checkModID(modID) {
     check = false;  
@@ -182,7 +272,9 @@ function checkModID(modID) {
     return check; 
 }
 
-/* Ex 5 */ 
+// *****************************************
+// ************  Exercice 5 ****************  
+// *****************************************
 
 function getSubString(string, deb, fin){
     substring = "";
@@ -217,11 +309,13 @@ function splitString(string,length) {
 
 }
 
-/* Ex 6 */ 
+// *****************************************
+// ************  Exercice 6 ****************  
+// *****************************************
 
 // Oui dans 2.1 A on voit TPO
 // Et dans 4.1 A on voit MLY 
-// Reste à les identifier dans la structure, difficile avec pad mac 
+// Reste à les identifier dans la structure 
 
 
 function trimTab(tab) { 
@@ -262,7 +356,9 @@ function getSeqFromSEQRES(modID, chainID) {
     return chainA; 
 }
 
-/* Ex 7 */
+// *****************************************
+// ************  Exercice 7 ****************  
+// *****************************************
 
 function getMODRES(modID,quiet) {
     new_dic = {}
@@ -301,10 +397,11 @@ function getMODRES(modID,quiet) {
 }
 
 
-
-
-
-
+// #######################################################################################################################################################
+// #######################################################################################################################################################
+// #######################################################################################################################################################
+// #######################################################################################################################################################
+// #######################################################################################################################################################
 
 
 //                                               _________
@@ -315,7 +412,7 @@ function getMODRES(modID,quiet) {
 //    | |     |   | +-+------+-.  |=======| <____> |   | ||    ||
 //    | |     |   | |o          \_|___  __|__//\\__|___|_+======+
 //    | +=========+ |o                                     o||=+
-//    | *         * |o                                     o||||            ALL ABOARD THE HYPE TRAIN.
+//    | *         * |o                                     o||||            ALL ABOARD THE HYPE TRAIN. DEBUT DU PROJET. 
 //    |    --%--    |o~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~o||=+
 //    +=====================================+-----------+====+
 //        |==/ ------ \=====/ ------ \===%--||o        o||____
@@ -328,8 +425,16 @@ function getMODRES(modID,quiet) {
 
 
 
+// #######################################################################################################################################################
+// #######################################################################################################################################################
+// ##################################################################         PARTIE 1           #########################################################
+// #######################################################################################################################################################
+// #######################################################################################################################################################
 
-// Projet - Partie 1 
+
+// ************************************************************************** 
+// ************ Transformation d'un tableau en string ***********************
+// ************************************************************************** 
 
 function join_tab(tab) {
     ret = "";
@@ -339,17 +444,26 @@ function join_tab(tab) {
     return ret;
 }
 
+// ************************************************************************** 
+// ************ Récuperation des noms  des chaines **************************  
+// ************************************************************************** 
+
+// Il peut y avoir differents cas : 
+// ex. COMPND   3 CHAIN: A, B, C, D;     
 
 function getChain(modID) {
-
-    // Attention il peut y avoir differents cas : 
-    //ex. COMPND   3 CHAIN: A, B, C, D;                                                   
+                                            
 
     ensembl_chains_find = getFileHeader(modID).split("\n").find("COMPND.+CHAIN:");
     new_tabl=[];
 
+    // Astuce pour que meme si find nous renvoie une string et non un tableau, cette string 
+    // soit englobee dans une case d'un tableau 
     ensembl_chains=  [] OR ensembl_chains_find; 
 
+
+    // Parcours de toutes les lignes correspondant aux chaines 
+    // Gere les cas ou il y a un ou plusieurs noms de chaines sur une meme ligne 
     for (l=1; l <= ensembl_chains.size; l++) {
         
         chain_s = trimTab(((ensembl_chains[l].split(':')[2])).split(" "));
@@ -368,9 +482,14 @@ function getChain(modID) {
     return new_tabl;
 }
 
+
+// ************************************************************************** 
+// ************  Recuperation des résidus manquants  ************************  
+// ************************************************************************** 
+
 function getMissingResidus(modID){
 
-    // Initialisation du dictionnaire des missig residus par chain BOOM
+    // Initialisation du dictionnaire des missing residus par chain 
 
     ensembl_chains = getChain(modID) ; 
     dico_missing_ = {};
@@ -382,9 +501,10 @@ function getMissingResidus(modID){
 
     missing_residus2 = getFileHeader(modID).split("\n").find("REMARK\\s465");
     missing_residus = [] OR missing_residus2;
-     // Boucle pour connaître N°ligne début REMARK missing res
+
     idx = 1 ;
 
+    // Boucle pour connaître N°ligne début REMARK missing res
     while (missing_residus.size && missing_residus[idx].find('M\\sRES\\sC',"v") == true){
         idx+=1;
     }
@@ -394,17 +514,18 @@ function getMissingResidus(modID){
     for (i=idx+1; i <= missing_residus.size ; i++) {
 
        missing_line=missing_residus[i];
-       number = trimTab(missing_line.split(" ")); // split(' ') ou split("\s") non fonctionnels pour tout type espacement ?
+       number = trimTab(missing_line.split(" ")); // split(' ') ou split("\s") non fonctionnels pour tout type espacement 
 
        chain_letter=number[4];
-        // number = missing_line.split("   "); // split(' ') ou split("\s") non fonctionnels pour tout type espacement ?
-       // chain_letter=number[2].split(" ");
+
        // Pour gérer les codes d'indentification 
        pos_number = number[5].find("\-*[0-9]+", "m");
        dico_missing_[chain_letter][dico_missing_[chain_letter].size+1] = pos_number;
        isEmpty = False;
     }
 
+
+    // Retourner dictionnaire completement vide si pas de missing residus 
     if (isEmpty) { 
         return {};
     } 
@@ -413,14 +534,19 @@ function getMissingResidus(modID){
 }
 
 
+// ************************************************************************** 
+// ************  Attribution de la propriete seqresno ***********************  
+// ************************************************************************** 
+
+
 function getSeqresno(modID) {
 
     dico_missing = getMissingResidus(modID);
 
     // On commence à 0 car dans tous les cas verifAtom ajoutent au moins 1
-    noCurr = 0; // ATTENTION 
+    noCurr = 0; 
 
-    //check si plus d'un modele dans fichier 
+    // Verifie si plus d'un modele dans fichier 
     actif = _modelNumber;
     model all ;
     all_models = _modelNumber;
@@ -428,14 +554,14 @@ function getSeqresno(modID) {
 
     modeleN = modID.split(".")[2]
 
+    // Dans le cas ou il y a plus d'un modele, on selectionne le modele que l'on souhaite  
     if (all_models.find("\-")) {
         info_chain1 = (getProperty('chainInfo', {protein}).split('\n').find("atomInfo1")).find("/"+modeleN+" ");
         info_chain2 = (getProperty('chainInfo', {protein}).split('\n').find("atomInfo2")).find("/"+modeleN+" ");
 
     }
+    // Sinon pas besoin de selectionenr de modele 
     else {
-
-        // Pour eviter de stocker trop d'informations, on recalcule 6 fois et on recupere juste la taille 
         info_chain1 = (getProperty('chainInfo', {protein}).split('\n').find("atomInfo1"));
         info_chain2 = (getProperty('chainInfo', {protein}).split('\n').find("atomInfo2"));
     }
@@ -449,16 +575,15 @@ function getSeqresno(modID) {
 
         for (u = 1 ; u <= info_chain1.size ; u++ ) {
 
+            // Recuperation des informations necessaires 
             idChain = (((info_chain1)[u].split(']')[2]).split('.')[1])[0] ;
             noRes = ((info_chain1)[u].split(']')[2]).split(':')[1] ;
-            // noRes = noRes.find("\-*[0-9]+", "m");
 
-            // Attention avant on avait mis ] et pas #
             noAtom1 = ((info_chain1)[u].split('#')[0]) ;
             noAtom2 = ((info_chain2)[u].split('#')[0]);
 
-            noAtom1 = 0 + noAtom1 ; //+1 
-            noAtom2 = 0 + noAtom2 ;// +1
+            noAtom1 = 0 + noAtom1 ;  
+            noAtom2 = 0 + noAtom2 ;
            
 
             // Remise a zero complete quand on change de chaine 
@@ -468,12 +593,11 @@ function getSeqresno(modID) {
                 previous_noRes = ""; 
             }
 
+            // Modifier la numeroation selon combien il y a de residus manquants avant 
             noCurr += verifAtom(noRes,dico_missing,idChain,previous_noRes) ;
 
             {model = modID and atomno >= noAtom1 and atomno <= noAtom2}.property_seqresno = noCurr; 
-          //  print {chain = idChain and atomno >= noAtom1 and atomno <= noAtom2}.property_seqresno
 
-            // Pas testé quand 1 ligne chaine A puis 1 ligne chaine B mais je pense que ça marche maintenant 
             previous_idChain = idChain;
             previous_noRes = noRes;
 
@@ -487,13 +611,17 @@ function getSeqresno(modID) {
 
 }
 
-function verifAtom(noAA,dico_missing,chainID,previous_noRes){  // A améliorer avec while vérifier condition
+// **************************************************************************************************************************************   
+// **************   Verifie si il y a un résidu manquant avant une position dans un modele et une chaine donnée  ************************  
+// **************************************************************************************************************************************   
+
+
+function verifAtom(noAA,dico_missing,chainID,previous_noRes){  
 
     increment = 0;
 
-    // Un bug precedent etait qu'on avait mis "i" dans la boucle comme dans la fonction du dessus... #Jmol
-
     if (dico_missing.size) {
+
         // Cas où on est au début d'une chaine 
         if (previous_noRes == "") { 
             for (l=1 ; l <= dico_missing[chainID].size ; l++) { 
@@ -514,6 +642,12 @@ function verifAtom(noAA,dico_missing,chainID,previous_noRes){  // A améliorer a
     return increment+1 ;
 }
 
+// #######################################################################################################################################################
+// #######################################################################################################################################################
+// #######################################################################################################################################################
+// #######################################################################################################################################################
+// #######################################################################################################################################################
+
 
 //          .---- -  -
 //         (   ,---— - -
@@ -524,45 +658,46 @@ function verifAtom(noAA,dico_missing,chainID,previous_noRes){  // A améliorer a
 // ~ ~~~~~~~~~~~~~~~~~~~~~~~~ ~
 
 
-// PARTIE 2
+// #######################################################################################################################################################
+// #######################################################################################################################################################
+// ##################################################################         PARTIE 2           #########################################################
+// #######################################################################################################################################################
+// #######################################################################################################################################################
 
+// getRes6000(modID) permet d'attribuer les propriétés qresno et qsmimil. 
+// Toutes les attributions se font en parallèle dans la fonction suivante. 
 
-// script BLAST_alignement_tous/BLAST_alignement2_2PIE-A.jmol; 
-
-// script BLAST_alignement_tous/BLAST_result_45.jmol; 
-
-// script BLAST_alignement_tous/BLAST_alignement2_2PIE-A.jmol;
-// Deb_file1= 0 + Hsp_hit_from ;
-// print Deb_file1;
-// Fin_file1= 0 + Hsp_hit_to ;
-// print Fin_file1;
-
-script BLAST_alignement_tous/BLAST_alignement5_3OUN-A.jmol; 
-
-// Deb_file2= 0 + Hsp_hit_from  ;
-// print Deb_file2;
-// Fin_file2= 0 + Hsp_hit_to  ;
-// print Fin_file2;
-
+// Notes : 
+// - Les variables telles que Hsp_hit_from sont obtenues directement à partir des fichiers d'alignement chargés.
+// - Ne pas oublier de charger un fichier d'alignement avant d'utiliser ceette fonction. 
 
 function getRes6000(modID){
     getSeqresno(modID);
 
-    // Affecter -1
+    // Affecter -1 pour qresno et qsimil si les acides aminés ne sont pas compris dans les bornes de l'alignement courant. 
     {(property_seqresno < Hsp_hit_from or property_seqresno > Hsp_hit_to) and protein and chain= Hit_chain and model = modID}.property_qresno = -1;
     {(property_seqresno < Hsp_hit_from or property_seqresno > Hsp_hit_to) and protein and chain= Hit_chain and model = modID}.property_qsimil = -1;
 
+    // Nombre de gap dans la sequence query 
     cpt=Hsp_gaps;
+
     len=1;
+
+    // Position de ces gaps
     pos_gap = [];
+
+    // 
     Pos_qseq=1;
 
 
-    while(cpt > 0 && len <= Hsp_hit_to){
+    // Parcours pour affecter 0 pour les deux propriétés lorsqu'un acide aminé de la séquence hit et aligné avec un gap dans la séquence query. 
+    // Boucle qui s'arrete lorsqu'on a parcouru tous les gaps de la séquence query. 
+    // Par la meme occasion nous conservons la position de ces gap, cela nous sera utile dans la prochaine boucle. 
+    while(cpt > 0 && len <= Hsp_hit_to){ 
         if (Hsp_qseq[len] == "-"){
             pos_gap[pos_gap.size+1]=len;
             cpt -= 1;
-            Res_hseq = 0 + Hsp_hit_from + len - 1; /////////////////////////////////////////////////
+            Res_hseq = 0 + Hsp_hit_from + len - 1; 
             {property_seqresno = Res_hseq and protein and chain= Hit_chain and model = modID }.property_qresno = 0;
             {property_seqresno = Res_hseq and protein and chain= Hit_chain and model = modID}.property_qsimil = 0;
 
@@ -572,27 +707,40 @@ function getRes6000(modID){
     }
 
 
-    // compteur de position dans tableau de gaps
+    // Compteur de position dans tableau de gaps
     cpt=1;
+    // Nombre de gaps rencontrés au fur et à mesure dans la séquence hit (séquence du bas)
     cpt_bas = 0;
 
 
-
+    // Parcours de la séquence hit pour les autres affectations selon 3 cas
     for(i=1 ; i <= Hsp_hseq.size; i+=1){
+
+        // Position courante dans la séquence hit, à laquelle on soustrait les gaps de la sequence hit au fur et a mesure qu'ils sont rencontrés.
         Res_hseq = 0 + Hsp_hit_from + i - 1 - cpt_bas;
+
+        // Cas 1 : l'acide aminé courant de la séquence hit est aligné avec un gap 
+        // Note : il ne peut pas y avoir d'alignement d'un gap avec un autre gap car ici pas d'alignement multiple.
+        // Revient à avancer la séquence du bas (l'affection de 0 pour les proprietes a deja ete fait auparavant)
         if(cpt <= Hsp_gaps && i == pos_gap[cpt] ){
             cpt+=1;
 
         }
+        // Cas 2 : l'acide aminé courant de la séquence hit est un gap 
+        // Revient à avancer le compteur de la séquence du bas et du haut (n'effectuer aucune action)
         else if (Hsp_hseq[i]== "-"){
             Pos_qseq+=1;
             cpt_bas+=1;
         }
-        else{
-            
+        // Cas 3 : l'acide aminé courant de la séquence hit est aligné avec un autre acide aminé de la séquence query 
+        // Seul cas ou on affecte une propriete 
+        else{            
             {property_seqresno = Res_hseq and protein and chain= Hit_chain and model = modID}.property_qresno = 0 + Hsp_query_from + Pos_qseq - 1;
             Pos_qseq+=1;
         }
+
+        // Dans tous les cas, chacun des acides aminés de la séquence hit se voit assigné différentes valeurs pour la propriétés qsimil selon 
+        // le caractère de la séquence midline à la meme position qui décrit l'alignement. 
 
         switch (Hsp_midline[i]){
             case "+" : 
@@ -601,7 +749,7 @@ function getRes6000(modID){
             case " " :
                 {property_seqresno = Res_hseq and protein and chain= Hit_chain and model = modID}.property_qsimil = 0 ;
                 break ;
-            default :
+            default : 
                 {property_seqresno = Res_hseq and protein and chain= Hit_chain and model = modID}.property_qsimil = 2 ;
 
 
@@ -612,6 +760,13 @@ function getRes6000(modID){
 
 
 }
+
+// #######################################################################################################################################################
+// #######################################################################################################################################################
+// #######################################################################################################################################################
+// #######################################################################################################################################################
+// #######################################################################################################################################################
+
 
 /*
 —----------------------------------____---------------------—
@@ -624,10 +779,16 @@ function getRes6000(modID){
 ===============================================================
 */
 
-// PARTIE 3
+
+// #######################################################################################################################################################
+// #######################################################################################################################################################
+// ##################################################################         PARTIE 3           #########################################################
+// #######################################################################################################################################################
+// #######################################################################################################################################################
 
 
 
+// Récupérer et retourner les bornes minimales et maximales des deux alignements 
 
 function getMinMax(alignID1, alignID2){
     tab_coord = [];
@@ -649,12 +810,14 @@ function getMinMax(alignID1, alignID2){
 }
 
 
+// Pour un alignement et un modèle donné, récuperer les atomes qui correspondent aux critères suivants : 
+// - Compris entre les bornes inférieures et minimales définies dans getMinMax (tableau coord donné en argument) 
+// - Correspondant au modèle donné
+// - Carbone alpha uniquement
+// - Filtre sur le type d'alignement avec la propriété qsimil 
 
-
-// 
 function getCA(modID, alignID, pdbID, condition, coord){
 
-    // load @pdbID; 
     script @alignID;
     model @modID;
     getRes6000(modID);
@@ -662,10 +825,8 @@ function getCA(modID, alignID, pdbID, condition, coord){
     Mod_Ca = []
 
     for (i= 0+ coord[1] ; i <= 0+coord[2]; i+=1){
-        // if ({property_qresno = i && model = modID  && *.CA && property_qsimil>=condition}.size > 0 ){
-            Mod_Ca[Mod_Ca.size+1] = {property_qresno = i && model = modID  && *.CA && property_qsimil >= condition}[1];
-       // } // Pense pas que atomname suffise !! Et ca fait quoi quand il y a plusieurs CA ! 52 53 2pie
-
+        // Dans le cas ou aucun atome ne correspond à la sélection, une case vide est ajoutée qui sera ensuite filtrée dans la fonction suivante. 
+        Mod_Ca[Mod_Ca.size+1] = {property_qresno = i && model = modID  && *.CA && property_qsimil >= condition}[1];
     }
 
     return Mod_Ca; 
@@ -673,6 +834,10 @@ function getCA(modID, alignID, pdbID, condition, coord){
 
 tab_1_final = []
 tab_2_final = []
+
+// Filtrer les tableaux crées pour chacun des deux alignements/modèles. Si une case est vide pour un alignement alors cette meme case est 
+// retirée pour les deux alignements.
+// De cette facon on obtient des tableaux du meme nombre d'atomes pour les deux alignements. 
 
 function checkSameAlign(tab_1, tab_2){
     j = 1
@@ -684,23 +849,12 @@ function checkSameAlign(tab_1, tab_2){
         }   
     }
 }
-// Tableau_Ca_Mod1 = getCA("1.1","BLAST_alignement_tous/BLAST_alignement2_2PIE-A.jmol", "2pie.pdb",2, getMinMax("BLAST_alignement_tous/BLAST_alignement2_2PIE-A.jmol","BLAST_alignement_tous/BLAST_alignement5_3OUN-A.jmol") );
-load 2pie.pdb;
-load append 3oun.pdb ;
 
 
-Tableau_Ca_Mod1 = getCA("1.1","BLAST_alignement_tous/BLAST_alignement2_2PIE-A.jmol", "2pie.pdb",0, getMinMax("BLAST_alignement_tous/BLAST_alignement2_2PIE-A.jmol","BLAST_alignement_tous/BLAST_alignement5_3OUN-A.jmol") );
-
-
-Tableau_Ca_Mod2 = getCA("2.1","BLAST_alignement_tous/BLAST_alignement5_3OUN-A.jmol", "3oun.pdb",0,getMinMax("BLAST_alignement_tous/BLAST_alignement2_2PIE-A.jmol","BLAST_alignement_tous/BLAST_alignement5_3OUN-A.jmol") );
-
-checkSameAlign(Tableau_Ca_Mod1,Tableau_Ca_Mod2);
-
-
-
-// compare {1.1} {2.1} ATOMS {tab_1_final} {tab_2_final} ROTATE TRANSLATE ;
-
-
-
+// #######################################################################################################################################################
+// #######################################################################################################################################################
+// #######################################################################################################################################################
+// #######################################################################################################################################################
+// #######################################################################################################################################################
 
 
